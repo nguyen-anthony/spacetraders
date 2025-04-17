@@ -2,7 +2,9 @@ package com.spacetraders.services
 
 import com.spacetraders.client.SpaceTradersClient
 import com.spacetraders.client.SpaceTradersConfig
-import com.spacetraders.models.ContractsResponse
+import com.spacetraders.models.AcceptContractResponse
+import com.spacetraders.models.Contract
+import io.micronaut.http.HttpResponse
 import jakarta.inject.Singleton
 import org.slf4j.LoggerFactory
 
@@ -13,11 +15,19 @@ class ContractService(
 ) {
     private val logger = LoggerFactory.getLogger(ContractService::class.java)
 
-    suspend fun getContracts(): ContractsResponse = try {
+    suspend fun getContracts(): HttpResponse<Contract> = try {
         logger.info("Getting contracts")
         spaceTradersClient.getContracts(spaceTradersConfig.token)
     } catch (e: Exception) {
         logger.error("Failed to get contracts", e)
         throw RuntimeException("Failed to get contracts", e)
+    }
+
+    suspend fun acceptContract(contractId: String): HttpResponse<AcceptContractResponse> = try {
+        logger.info("Accepting contract with ID: $contractId")
+        spaceTradersClient.acceptContract(spaceTradersConfig.token, contractId)
+    } catch (e: Exception) {
+        logger.error("Failed to accept contract with ID: $contractId", e)
+        throw RuntimeException("Failed to accept contract with ID: $contractId", e)
     }
 } 

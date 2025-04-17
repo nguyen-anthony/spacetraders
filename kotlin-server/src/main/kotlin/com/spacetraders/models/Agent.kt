@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serdeable
 @Serializable
-data class AgentResponse(
+data class Agent(
     val data: AgentData
 )
 

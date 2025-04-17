@@ -5,36 +5,24 @@ import kotlinx.serialization.Serializable
 
 @Serdeable
 @Serializable
-data class WaypointResponse(
+data class Waypoint(
     val data: WaypointData
 )
 
 @Serdeable
 @Serializable
 data class WaypointData(
+    val systemSymbol: String? = null,
     val symbol: String,
     val type: String,
-    val systemSymbol: String,
     val x: Int,
     val y: Int,
     val orbitals: List<Orbital>,
-    val traits: List<Trait>,
-    val chart: Chart,
-    val faction: Faction
-)
-
-@Serdeable
-@Serializable
-data class Orbital(
-    val symbol: String
-)
-
-@Serdeable
-@Serializable
-data class Trait(
-    val symbol: String,
-    val name: String,
-    val description: String
+    val traits: List<Trait>? = null,
+    val modifiers: List<String>? = null,
+    val chart: Chart? = null,
+    val faction: Faction? = null,
+    val isUnderConstruction: Boolean? = null,
 )
 
 @Serdeable
@@ -43,9 +31,3 @@ data class Chart(
     val submittedBy: String,
     val submittedOn: String
 )
-
-@Serdeable
-@Serializable
-data class Faction(
-    val symbol: String
-) 

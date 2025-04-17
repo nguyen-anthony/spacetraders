@@ -2,7 +2,7 @@ package com.spacetraders.services
 
 import com.spacetraders.client.SpaceTradersClient
 import com.spacetraders.client.SpaceTradersConfig
-import com.spacetraders.models.WaypointResponse
+import com.spacetraders.models.Waypoint
 import jakarta.inject.Singleton
 import org.slf4j.LoggerFactory
 
@@ -13,10 +13,10 @@ class WaypointService(
 ) {
     private val logger = LoggerFactory.getLogger(WaypointService::class.java)
 
-    suspend fun getHeadquartersWaypoint(): WaypointResponse = try {
+    suspend fun getHeadquartersWaypoint(): Waypoint = try {
         logger.info("Getting agent information")
         val agent = spaceTradersClient.getAgent(spaceTradersConfig.token)
-        val headquarters = agent.data.headquarters
+        val headquarters = agent.body().data.headquarters
         logger.info("Agent headquarters: $headquarters")
         
         val parts = headquarters.split("-")

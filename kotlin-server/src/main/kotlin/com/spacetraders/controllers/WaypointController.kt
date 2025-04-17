@@ -15,13 +15,16 @@ class WaypointController @Inject constructor(private val waypointService: Waypoi
     
     @Get("/headquarters-waypoint")
     @Produces(MediaType.APPLICATION_JSON)
-    suspend fun getHeadquartersWaypoint() = try {
+    suspend fun getHeadquartersWaypoint() = runCatching {
         logger.info("Received request for headquarters waypoint")
-        val waypoint = waypointService.getHeadquartersWaypoint()
-        logger.info("Successfully retrieved headquarters waypoint: ${waypoint.data.symbol}")
-        HttpResponse.ok(waypoint)
-    } catch (e: Exception) {
-        logger.error("Error getting waypoint information", e)
-        HttpResponse.serverError("Error getting waypoint information: ${e.message}")
-    }
+        waypointService.getHeadquartersWaypoint()
+    }.fold (
+        onSuccess = {
+            it
+        },
+        onFailure = {
+            logger.error("Error getting headquarters waypoint", it)
+            HttpResponse.serverError("Error getting headquarters waypoint: ${it.message}")
+        }
+    )
 } 

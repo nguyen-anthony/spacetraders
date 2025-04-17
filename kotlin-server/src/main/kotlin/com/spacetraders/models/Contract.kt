@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serdeable
 @Serializable
-data class ContractsResponse(
+data class Contract(
     val data: List<ContractData>
 )
 
@@ -17,7 +17,9 @@ data class ContractData(
     val type: String,
     val terms: ContractTerms,
     val accepted: Boolean,
-    val fulfilled: Boolean
+    val fulfilled: Boolean,
+    val expiration: String? = null,
+    val deadlineToAccept: String? = null,
 )
 
 @Serdeable
