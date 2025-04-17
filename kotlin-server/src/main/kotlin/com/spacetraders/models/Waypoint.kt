@@ -17,7 +17,7 @@ data class WaypointData(
     val type: String,
     val x: Int,
     val y: Int,
-    val orbitals: List<Orbital>,
+    val orbitals: List<Orbital>? = null,
     val traits: List<Trait>? = null,
     val modifiers: List<String>? = null,
     val chart: Chart? = null,

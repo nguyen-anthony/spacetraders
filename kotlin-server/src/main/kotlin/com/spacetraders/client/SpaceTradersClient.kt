@@ -4,10 +4,11 @@ import com.spacetraders.config.EnvConfig
 import com.spacetraders.models.AcceptContractResponse
 import com.spacetraders.models.Agent
 import com.spacetraders.models.Contract
-import com.spacetraders.models.ContractData
 import com.spacetraders.models.ContractDetailsResponse
+import com.spacetraders.models.SearchWaypointResponse
 import com.spacetraders.models.Waypoint
 import com.spacetraders.models.System
+import com.spacetraders.models.WaypointTrait
 import io.micronaut.context.annotation.ConfigurationProperties
 import io.micronaut.http.HttpHeaders
 import io.micronaut.http.HttpResponse
@@ -35,22 +36,8 @@ interface SpaceTradersClient {
         @Header(HttpHeaders.AUTHORIZATION) token: String,
     ): HttpResponse<Any>
 
-    @Get("/systems")
-    suspend fun getSystems(
-        @Header(HttpHeaders.AUTHORIZATION) token: String,
-        @QueryValue("page") page: Int? = 1,
-        @QueryValue("limit") limit: Int? = 10
-    ): System
-
     @Get("/my/agent")
     suspend fun getAgent(@Header(HttpHeaders.AUTHORIZATION) token: String): HttpResponse<Agent>
-
-    @Get("/systems/{systemSymbol}/waypoints/{waypointSymbol}")
-    suspend fun getWaypoint(
-        systemSymbol: String,
-        waypointSymbol: String,
-        @Header(HttpHeaders.AUTHORIZATION) token: String
-    ): Waypoint
 
     @Get("/my/contracts")
     suspend fun getContracts(@Header(HttpHeaders.AUTHORIZATION) token: String): HttpResponse<Contract>
@@ -63,4 +50,25 @@ interface SpaceTradersClient {
 
     @Post("/my/contracts/{contractId}/accept")
     suspend fun acceptContract(@Header(HttpHeaders.AUTHORIZATION) token: String, @PathVariable contractId: String): HttpResponse<AcceptContractResponse>
+
+    @Get("/systems")
+    suspend fun getSystems(
+        @Header(HttpHeaders.AUTHORIZATION) token: String,
+        @QueryValue("page") page: Int? = 1,
+        @QueryValue("limit") limit: Int? = 10
+    ): System
+
+    @Get("/systems/{systemSymbol}/waypoints/{waypointSymbol}")
+    suspend fun getWaypoint(
+        systemSymbol: String,
+        waypointSymbol: String,
+        @Header(HttpHeaders.AUTHORIZATION) token: String
+    ): Waypoint
+
+    @Get("/systems/{systemSymbol}/waypoints")
+    suspend fun searchWaypoints(
+        @Header(HttpHeaders.AUTHORIZATION) token: String,
+        @PathVariable systemSymbol: String,
+        @QueryValue("traits") traits: WaypointTrait? = null,
+    ): SearchWaypointResponse
 } 
