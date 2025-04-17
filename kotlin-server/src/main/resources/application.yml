@@ -1,0 +1,38 @@
+micronaut:
+  application:
+    name: spacetraders-proxy
+  server:
+    port: ${PORT:8080}
+    cors:
+      enabled: true
+      configurations:
+        all:
+          allowedOrigins:
+            - "*"
+          allowedMethods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - OPTIONS
+          allowedHeaders:
+            - Content-Type
+            - Authorization
+          exposedHeaders:
+            - Content-Type
+            - Authorization
+          maxAge: 1800
+  http:
+    client:
+      read-timeout: 5s
+      connection-pool:
+        max-threads: 5
+  router:
+    static-resources:
+      enabled: false
+  io:
+    watch:
+      paths: src/main
+      restart: true
+  security:
+    enabled: false 

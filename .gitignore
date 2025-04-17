@@ -1,0 +1,75 @@
+# Environment variables
+.env
+.env.*
+
+# Build outputs
+build/
+out/
+target/
+bin/
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Gradle
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# IDE specific files
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.settings/
+.classpath
+.project
+.factorypath
+
+# Micronaut specific
+.micronaut/
+.micronaut-aot/
+.micronaut-aot-cache/
+
+# Kotlin specific
+*.kotlin_module
+*.kts
+!build.gradle.kts
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS specific
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Test coverage
+coverage/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Temporary files
+tmp/
+temp/
