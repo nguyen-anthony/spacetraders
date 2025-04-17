@@ -4,6 +4,8 @@ import com.spacetraders.config.EnvConfig
 import com.spacetraders.models.AcceptContractResponse
 import com.spacetraders.models.Agent
 import com.spacetraders.models.Contract
+import com.spacetraders.models.ContractData
+import com.spacetraders.models.ContractDetailsResponse
 import com.spacetraders.models.Waypoint
 import com.spacetraders.models.System
 import io.micronaut.context.annotation.ConfigurationProperties
@@ -52,6 +54,12 @@ interface SpaceTradersClient {
 
     @Get("/my/contracts")
     suspend fun getContracts(@Header(HttpHeaders.AUTHORIZATION) token: String): HttpResponse<Contract>
+
+    @Get("/my/contracts/{contractId}")
+    suspend fun getContractDetails(
+        @Header(HttpHeaders.AUTHORIZATION) token: String,
+        @PathVariable contractId: String
+    ): HttpResponse<ContractDetailsResponse>
 
     @Post("/my/contracts/{contractId}/accept")
     suspend fun acceptContract(@Header(HttpHeaders.AUTHORIZATION) token: String, @PathVariable contractId: String): HttpResponse<AcceptContractResponse>

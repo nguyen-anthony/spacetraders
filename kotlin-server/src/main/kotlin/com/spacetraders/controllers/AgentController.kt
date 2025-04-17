@@ -45,6 +45,19 @@ class AgentController @Inject constructor(
         }
     )
 
+    @Get("/my_contracts/{contractId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    suspend fun getContractDetails(@PathVariable contractId: String) = runCatching {
+        logger.info("Received request for getting agent contract details")
+        contractService.getContractDetails(contractId)
+    }.fold(
+        onSuccess = { it },
+        onFailure = {
+            logger.info("Error getting agent contract details", it)
+            HttpResponse.serverError("Error getting agent contract details: ${it.message}")
+        }
+    )
+
     @Post("/accept_contract/{contractId}")
     @Produces(MediaType.APPLICATION_JSON)
     suspend fun acceptContract(@PathVariable contractId: String) = runCatching {
